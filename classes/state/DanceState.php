@@ -1,5 +1,5 @@
 <?php
-namespace classes;
+namespace classes\state;
 
 /**
  * Class DanceState - класс состояния - на танцполе

@@ -1,5 +1,8 @@
 <?php
-namespace classes;
+namespace classes\state;
+
+use classes\BarClient;
+use classes\Storage;
 
 /**
  * Class State

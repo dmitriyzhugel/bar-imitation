@@ -1,6 +1,8 @@
 <?php
 namespace classes;
 
+use classes\state\OrderState;
+
 class Storage
 {
     /**

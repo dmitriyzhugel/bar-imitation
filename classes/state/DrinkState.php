@@ -1,5 +1,5 @@
 <?php
-namespace classes;
+namespace classes\state;
 
 /**
  * Class DrinkState - класс состояния - в баре

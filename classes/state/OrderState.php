@@ -1,5 +1,5 @@
 <?php
-namespace classes;
+namespace classes\state;
 
 /**
  * Class OrderState - класс состояния - выпивает и заказывает музыку

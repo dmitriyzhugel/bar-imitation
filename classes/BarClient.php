@@ -1,6 +1,10 @@
 <?php
 namespace classes;
 
+use classes\state\State;
+use classes\state\DanceState;
+use classes\state\DrinkState;
+
 /**
  * Class BarClient - сущность - клиент бара
  * @package classes
