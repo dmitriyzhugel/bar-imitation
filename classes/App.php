@@ -4,6 +4,7 @@ namespace classes;
 /**
  * Class App - контейнер приложения
  * @package classes
+ * @author Dmitriy Zhugel <dzhugel@mail.ru>
  */
 class App
 {
@@ -70,8 +71,22 @@ class App
         $storage->readClientsFile($clients_file);
         $clients = $storage->getClients();
 
+        $timeline_buf = [];
         foreach ($clients as $client) {
 
+            $order_genre = $client->getOrderGenre();
+            // Клиент заказывает музыку
+            $client->orderMusic($order_genre);
+            $timeline_buf[] = $client;
+            print "Welcome " . $client->getName() . "!" . PHP_EOL;
+
+            if (!empty($timeline_buf)) {
+                foreach ($timeline_buf as $tmp_client) {
+                    $tmp_client->checkCurrentTrack();
+                    print $tmp_client->getDescription();
+                }
+                print "\n";
+            }
         }
     }
 }

@@ -65,7 +65,8 @@ class Storage
                 $order_genre = $data[2] ?? '';
                 if (!empty($name) && !empty($genres)) {
                     $genres_list = explode(';', $genres);
-                    $bar_client = new BarClient($name, $genres_list);
+                    $bar_client = new BarClient($name, $genres_list, $order_genre, new OrderState());
+                    // Добавление клиента в список
                     static::addClient($bar_client);
                 }
             }

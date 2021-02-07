@@ -1,13 +1,15 @@
 <?php
 namespace classes;
 
-use RefactoringGuru\State\Conceptual\Context;
-
 /**
+ * Class State
+ *
  * Базовый класс Состояния объявляет методы, которые должны реализовать все
  * Конкретные Состояния, а также предоставляет обратную ссылку на объект
  * Контекст, связанный с Состоянием. Эта обратная ссылка может использоваться
  * Состояниями для передачи Контекста другому Состоянию.
+ *
+ * @package classes
  */
 abstract class State
 {
@@ -25,5 +27,15 @@ abstract class State
 
     abstract public function goDrink(): void;
 
-    abstract public function checkCurrentTrack(): void;
+    abstract public function getDescription(): string;
+
+    public function checkCurrentTrack(): void
+    {
+        $storage = Storage::getInstance();
+        if ($this->bar_client->checkFavoriteGenre($storage->getCurrentGenre())) {
+            $this->goDance();
+        } else {
+            $this->goDrink();
+        }
+    }
 }

@@ -4,6 +4,7 @@ namespace classes;
 /**
  * Class BarClient - сущность - клиент бара
  * @package classes
+ * @author Dmitriy Zhugel <dzhugel@mail.ru>
  */
 class BarClient
 {
@@ -17,17 +18,27 @@ class BarClient
      */
     protected array $genres = [];
 
+    /**
+     * @var string
+     */
     protected string $order_genre = '';
 
     /**
      * @var State Ссылка на текущее состояние Контекста.
      */
-    private $state;
+    private State $state;
 
-    public function __construct(string $name, array $genres)
+    /**
+     * @var bool Признак заказа музыки
+     */
+    private bool $order_flag = false;
+
+    public function __construct(string $name, array $genres, string $order_genre, State $state)
     {
         $this->name = $name;
         $this->genres = $genres;
+        $this->order_genre = $order_genre;
+        $this->changeState($state);
     }
 
     /**
@@ -63,6 +74,38 @@ class BarClient
     }
 
     /**
+     * @return string
+     */
+    public function getOrderGenre(): string
+    {
+        return $this->order_genre;
+    }
+
+    /**
+     * @param string $order_genre
+     */
+    public function setOrderGenre(string $order_genre): void
+    {
+        $this->order_genre = $order_genre;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOrderFlag(): bool
+    {
+        return $this->order_flag;
+    }
+
+    /**
+     * @param bool $order_flag
+     */
+    public function setOrderFlag(bool $order_flag): void
+    {
+        $this->order_flag = $order_flag;
+    }
+
+    /**
      * Проверка на любимый жанр
      * @param string $genre
      * @return bool
@@ -79,5 +122,48 @@ class BarClient
     public function orderMusic(string $genre): void
     {
         Storage::getInstance()->setCurrentGenre($genre);
+    }
+
+    /**
+     * Контекст позволяет изменять объект Состояния во время выполнения.
+     * @param State $state
+     */
+    public function changeState(State $state): void
+    {
+        $this->state = $state;
+        $this->state->setContext($this);
+    }
+
+    /**
+     * Проверка текущего играющего жанра
+     */
+    public function checkCurrentTrack(): void
+    {
+        $this->state->checkCurrentTrack();
+    }
+
+    /**
+     * Клиент идет танцевать
+     */
+    public function goDance(): void
+    {
+        $this->changeState(new DanceState());
+    }
+
+    /**
+     * Клиент идет в бар
+     */
+    public function goDrink(): void
+    {
+        $this->changeState(new DrinkState());
+    }
+
+    /**
+     * Описание деятельности клиента бара
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->state->getDescription();
     }
 }
