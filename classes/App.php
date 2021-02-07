@@ -79,6 +79,7 @@ class App
             $client->orderMusic($order_genre);
             $timeline_buf[] = $client;
             print "Welcome " . $client->getName() . "!" . PHP_EOL;
+            print "Now play " . Storage::getInstance()->getCurrentGenre() . PHP_EOL;
 
             if (!empty($timeline_buf)) {
                 foreach ($timeline_buf as $tmp_client) {
