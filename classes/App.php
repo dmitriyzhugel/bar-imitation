@@ -1,6 +1,10 @@
 <?php
 namespace classes;
 
+/**
+ * Class App - контейнер приложения
+ * @package classes
+ */
 class App
 {
     /**
@@ -55,6 +59,19 @@ class App
      */
     public function run(): void
     {
-        echo "...run\n";
+        global $argv;
+
+        $clients_file = isset($argv[1]) ? $argv[1] : false;
+        if (empty($clients_file)) {
+            throw new \Exception("Cannot read client's file");
+        }
+
+        $storage = Storage::getInstance();
+        $storage->readClientsFile($clients_file);
+        $clients = $storage->getClients();
+
+        foreach ($clients as $client) {
+
+        }
     }
 }
