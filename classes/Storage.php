@@ -61,12 +61,12 @@ class Storage
     public function readClientsFile($clients_file): bool
     {
         if (($handle = fopen($clients_file, "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, 1000, " ")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                 $name = $data[0] ?? '';
                 $genres = $data[1] ?? '';
                 $order_genre = $data[2] ?? '';
                 if (!empty($name) && !empty($genres)) {
-                    $genres_list = explode(';', $genres);
+                    $genres_list = explode(',', $genres);
                     $bar_client = new BarClient($name, $genres_list, $order_genre, new OrderState());
                     // Добавление клиента в список
                     static::addClient($bar_client);
