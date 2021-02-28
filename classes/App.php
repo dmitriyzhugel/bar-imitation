@@ -57,11 +57,11 @@ class App
 
     /**
      * Запуск приложения
+     * @param array $argv
+     * @throws \Exception
      */
-    public function run(): void
+    public function run(array $argv): void
     {
-        global $argv;
-
         $clients_file = isset($argv[1]) ? $argv[1] : false;
         if (empty($clients_file)) {
             throw new \Exception("Cannot read client's file");
